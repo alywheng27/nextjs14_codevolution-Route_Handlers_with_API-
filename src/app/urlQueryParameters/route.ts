@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { comments } from "../comments/data";
+import { allComments } from "../comments/data";
 
 // NextRequest is used to access the query parameter
 export async function GET(request: NextRequest) {
@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
         where the text property includes the value of query. The filtered comments will be assigned to the queryFiltered array.
      *  If query is falsy (i.e., it does not have a value), then the queryFiltered array will be assigned the same value as the comments array.
      */
-    const filteredComments = query ? comments.filter((comment) => comment.text.includes(query)) : comments
+    const filteredComments = query ? allComments.filter((comment) => !comment.text.includes(query)) : allComments
 
     return Response.json(filteredComments)
 }

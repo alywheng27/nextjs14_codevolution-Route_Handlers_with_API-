@@ -1,7 +1,10 @@
 import { redirect } from "next/navigation"
 
 // Redirect to urlQueryParameters
-export async function GET(){
+// It only works on GET
+// GET doesn't have to be an async function
+// It also redirect to UI
+export function GET(){
     redirect("/urlQueryParameters")
-    return null;
+    // redirect("/app-ui")
 }

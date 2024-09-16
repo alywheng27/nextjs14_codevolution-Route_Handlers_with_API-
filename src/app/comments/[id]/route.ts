@@ -1,22 +1,21 @@
-import { comments } from "../data";
+import { allComments } from "../data";
 
 // ! Dynamic Route Handlers
 // ? The parent of params is 'context' which is the second parameter in GET function.
 // ? The 'params' was destructured from context.
 export async function GET(
-  // use _request since thsi variable has not been used
+  // use _request since this variable has not been used
   _request: Request,
   { params }: { params: { id: string } }
 ) {
-  const foundComment = comments.find(
+  const foundComment = allComments.find((comment) => comment.id === parseInt(params.id)
     /***
      * The comment variable is a parameter of the callback function passed to the find method.
-     * It represents each individual comment object in the comments array as the find method iterates over the array.
+     * It represents each individual comment object in the allComments array as the find method iterates over the array.
      * The comment variable is automatically assigned by the find method as it executes the callback function for each element in the array.
      */
-    (comment) => comment.id === parseInt(params.id)
   );
-
+  
   return Response.json(foundComment);
 }
 
@@ -27,27 +26,24 @@ export async function PATCH(
     const body = await request.json()
     const { text } = body
 
-    const index = comments.findIndex(
+    const index = allComments.findIndex(
         (comment) => comment.id === parseInt(params.id)
     )
     
-    comments[index].text = text
+    allComments[index].text = text
     
-    return Response.json(comments[index])
+    return Response.json(allComments[index])
 }
 
 export async function DELETE(
-    request: Request,
+    _request: Request,
     { params }: { params: { id: string } }
 ) {
-  const index = comments.findIndex(
+  const index = allComments.findIndex(
       (comment) => comment.id === parseInt(params.id)
   )
 
-  const deletedComment = comments[index]
+  const remainingComments = allComments.splice(index, 1)
 
-  comments.splice(index, 1)
-
-  return Response.json(deletedComment)
+  return Response.json(allComments)
 }
-  

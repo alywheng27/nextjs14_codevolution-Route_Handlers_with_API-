@@ -26,8 +26,6 @@
   }
 
 - GET is the naming convention for get request.
-- It needs to be an async function and return a Response.
-- return Response is required for a route handler to work.
 
 ## POST
   export async function POST(request: Request) {
@@ -58,7 +56,10 @@
       "Content-Type": "application/json",
     },
     status: 201,
-- })
+  })
+
+- "return Response.json(comments)" and "return new Response(JSON.stringify(comments))" are just the same except
+  "return new Response(JSON.stringify(comments))" have more control over the response.
 
 ## Dynamic Route Handlers
 - The parent of params is 'context' which is the second parameter in GET function.
@@ -137,6 +138,9 @@
 
 ## Redirects in Route Handlers
 - You can redirect to another route in route handlers.
+- It only works on GET
+- GET doesn't have to be an async function
+- It also redirect to UI
 
 ## Headers in Route Handlers
 - HTTP headers represent the metadata associated with an API request and response.
@@ -156,7 +160,7 @@
     It tells the client what the data type of the returned content is, 
     such as text/html for HTML, application.json for JSONdata, etc.
 
-- Header is being get
+# Getting Header
 
   const requestHeader = new Headers(request.headers)
 - Headers can be requested using NextRequest
@@ -164,7 +168,7 @@
   const headerList = headers()
 - Headers can also be requested using headers() from next/headers
 
-- Header is being set
+# Setting Header
 
   headers: {
       "Content-Type": "text/html",

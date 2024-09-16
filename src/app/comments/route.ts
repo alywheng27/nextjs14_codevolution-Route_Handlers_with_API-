@@ -1,8 +1,8 @@
-import { comments } from "./data"
+import { allComments } from "./data"
 
 // ! return Response is required for a route handler to work.
 export async function GET() {
-  return Response.json(comments)
+  return Response.json(allComments)
 }
 
 export async function POST(request: Request) {
@@ -11,13 +11,13 @@ export async function POST(request: Request) {
 
   // newComment variable's value is from the combined value of comments and comment
   const newComment = {
-    id: comments.length + 1,
+    id: allComments.length + 1,
     text: comment.text,
   }
 
-  // comments variable's value is from the data.ts
+  // allComments variable's value is from the data.ts
   // Inserted to comments
-  comments.push(newComment)
+  allComments.push(newComment)
 
   return new Response(JSON.stringify(newComment), {
     headers: {

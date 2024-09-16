@@ -1,4 +1,4 @@
-export const comments = [
+export const allComments = [
     {
         id: 1,
         text: "This is comment 1"
